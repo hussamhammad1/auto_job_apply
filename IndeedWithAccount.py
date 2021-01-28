@@ -152,7 +152,7 @@ def run(username, password, search_id, search_loc):
 
 
         ############################# change the following strings to your data ###################
-Login_username = 'hussamhammad@cmail.carleton.ca'  # change to yours
+Login_username = 'hussamhammad@cap.canada.ca'  # change to yours
 Login_password = 'place_holder'  # change to yours
 
 Search_keyword = 'finance'  # job / field / keyword
