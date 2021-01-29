@@ -106,35 +106,63 @@ def clickNextPage():
 
 def submitApplication():
     while True:
+        trail_and_error()
+        time.sleep(Loading_time)
+        break
+    # time.sleep(Loading_time)
 
+
+def questionaire():
+    text_feild_q = []
+    drop_menu_q = []
+    radio_btn_q = []
+    text_feild_q = browser.find_elements_by_class_name('icl-TextInput-control')
+    for texf in text_feild_q:
+        time.sleep(Loading_time)
+        texf.send_keys('3')
+    drop_menu_q = browser.find_elements_by_class_name(
+        'icl-Select-control is-error')
+    for drp_mn in drop_menu_q:
+        time.sleep(Loading_time)
         try:
-            element = browser.find_element_by_xpath(
-                '//*[@id="form-action-continue"]')  # placeholder
-            element.click()
-            button_two = browser.find_element_by_xpath(
-                '//*[@id="ia-ApplyFormScreen"]/div/form/div[2]/div[2]/div/div[2]/button[1]')
-            continue_button = browser.find_element_by_xpath(
-                '//*[@id="form-action-continue"]')
-            submit_button = browser.find_element_by_xpath(
-                '//*[@id="form-action-submit"]')
-            button_four = browser.find_element_by_xpath(
-                '//*[@id="ia-container"]/div/div[2]/a')
+            if drp_mn == 'Canada':
+                drp_mn.select_by_value('Canada')
+            drp_mn.select_by_index(1)
         except:
-            break
-    time.sleep(Loading_time)
+            continue
+    radio_btn_q = browser.find_elements_by_id('radio-option-1')
+    for rdbtn in radio_btn_q:
+        rdbtn.select_by_index(1)
 
-    def questionaire():
-        # will start a while true function with if statements to funnel down to the least likely option
-        # Text fields -> radio buttons ->dropdowns
-        text_feild_q = browser.find_elements_by_class_name(
-            'icl-TextInput-control')  # I am hoping this will catch every textinput field
-        # icl-TextInput-control icl-TextInput-control--sm is-error
 
-        drop_menu_q = browser.find_elements_by_class_name(
-            'icl-Select-control is-error')
-        text_feild_q_a = browser.find_elements_by_class_name(
-            'icl-TextInput-control icl-TextInput-control--sm')
-        radio_btn_q = browser.find_element_by_id('radio-option-1')
+def trail_and_error():
+    action_button = browser.find_element_by_xpath(
+        '//*[@id="form-action-continue"]')
+    continue_button = browser.find_element_by_xpath(
+        '//*[@id="form-action-continue"]')
+    submit_button = browser.find_element_by_xpath(
+        '//*[@id="form-action-submit"]')
+    button_two = browser.find_element_by_xpath(
+        '//*[@id="ia-ApplyFormScreen"]/div/form/div[2]/div[2]/div/div[2]/button[1]')
+    button_three = browser.find_element_by_xpath(
+        '//*[@id="ia-container"]/div/div[2]/a')
+    try:
+        values = browser.find_elements(By.XPATH, '//*[id')
+        for value in values:
+            if value == '//*[@id="form-action-continue"]':
+                action_button.click()
+            elif value == '//*[@id="ia-ApplyFormScreen"]/div/form/div[2]/div[2]/div/div[2]/button[1]':
+                button_two.click()
+            elif value == '//*[@id="form-action-continue"]':
+                continue_button.click()
+            elif value == '//*[@id="form-action-submit"]':
+                submit_button.click()
+            elif value == '//*[@id="ia-container"]/div/div[2]/a':
+                button_three.click()
+            else:
+                questionaire()
+    except Exception:
+        trail_and_error()
 
 
 def run(username, password, search_id, search_loc):
